@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Belajar react</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+      const container = document.getElementById("root");
+      const root = ReactDOM.createRoot(container);
+
+      function HomePage() {
+        const [counter, setCounter] = React.useState(0);
+
+        function increment() {
+          setCounter(counter + 1);
+        }
+
+        function decrement() {
+          setCounter(counter - 1);
+        }
+
+        function reset() {
+          setCounter(0);
+        }
+
+        function MyCounter() {
+          return <span>{counter}</span>;
+        }
+
+        function MyButton({ text, onClick, counter }) {
+          let disabled = "";
+          if (text == "Reset!") {
+            if (counter > 9 || counter < 0) {
+              disabled = false;
+            } else {
+              disabled = true;
+            }
+          } else {
+            if (counter > 9 || counter < 0) {
+              disabled = true;
+            } else {
+              disabled = false;
+            }
+          }
+
+          return (
+            <button disabled={disabled} onClick={onClick}>
+              {text}
+            </button>
+          );
+        }
+
+        return (
+          <div>
+            <MyButton text={"+"} onClick={increment} counter={counter} />
+
+            <span>{counter > 9 || counter < 0 ? "done!" : counter}</span>
+
+            <MyButton text={"-"} onClick={decrement} counter={counter} />
+
+            <br />
+
+            <MyButton text={"Reset!"} onClick={reset} counter={counter} />
+          </div>
+        );
+      }
+
+      root.render(<HomePage />);
+    </script>
+  </body>
+  <!-- <MyCounter counter={counter} /> -->
+</html>
